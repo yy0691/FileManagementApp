@@ -1,0 +1,28 @@
+﻿<Window x:Class="FileManagementApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="文件管理软件" Height="300" Width="400">
+    <Grid>
+        <Button x:Name="btnCreateExcel" Content="创建出库列表" 
+                HorizontalAlignment="Left" Margin="16,37,0,0" 
+                VerticalAlignment="Top" Width="170" Height="40"
+                Click="BtnCreateExcel_Click"/>
+        <Button x:Name="btnSelectDirectories" Content="选择成品目录" 
+                HorizontalAlignment="Left" Margin="16,85,0,0" 
+                VerticalAlignment="Top" Width="170" Height="40"
+                Click="BtnSelectDirectories_Click"/>
+        <TextBox x:Name="txtStatus" 
+                 HorizontalAlignment="Left" Margin="18,240,0,0" 
+                 VerticalAlignment="Top" Width="340" Height="23" 
+                 IsReadOnly="True" TextWrapping="Wrap"/>
+
+        <Button Content="批量替换" Click="BtnOpenReplaceWindow_Click" Width="170" Height="40" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="212,37,0,0"/>
+        <TextBlock HorizontalAlignment="Center" Margin="0,177,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="47" Width="364" Foreground="#FFAE2525"><Run Text="软件使用前提"/><Run Text="："/><LineBreak/><Run Text="1. "/><Run Text="所有的内容都已经整合在一个/两"/><Run Text="个"/><Run Text="文件"/><Run Text="夹里"/><Run Text="；"/><LineBreak/><Run Text="2.出库实验名称与已有文件名称大致相同"/><Run Text="。"/></TextBlock>
+        <Label Content="功能一：" HorizontalAlignment="Left" Margin="16,10,0,0" VerticalAlignment="Top"/>
+        <Label Content="功能二：" HorizontalAlignment="Left" Margin="212,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.022,0.328"/>
+        <TextBlock HorizontalAlignment="Left" Margin="18,130,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="170" Foreground="#FF868080"><Run Text="功能一"/><Run Text="："/><Run Text="根据excel"/><Run Text="表检索对应"/><Run Text="文件夹"/><Run Text="下的出库手册、运行包"/><Run Language="zh-cn" Text="。"/></TextBlock>
+        <TextBlock HorizontalAlignment="Left" Margin="214,130,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="170" Foreground="#FF868080"><Run Text="功能"/><Run Language="zh-cn" Text="二"/><Run Text="："/><Run Language="zh-cn" Text="批量替换多个word中文本内容，且不改变格式"/><Run Text="。"/></TextBlock>
+        <Button Content="固定替换" HorizontalAlignment="Left" VerticalAlignment="Top" Width="170" Height="40" Click="BtnFixedReplaceText_Click" Margin="212,85,0,0"/>
+
+    </Grid>
+</Window>
