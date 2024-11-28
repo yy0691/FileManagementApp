@@ -7,7 +7,7 @@
             <ImageBrush TileMode="None"/>
         </Grid.Background>
         <Grid Height="150" Margin="16,18,16,0" VerticalAlignment="Top" Width="368">
-            <Button x:Name="btnCreateExcel" Content="创建出库列表" 
+        <Button x:Name="btnCreateExcel" Content="创建出库列表" 
                 HorizontalAlignment="Left" Margin="0,27,0,0" 
                 VerticalAlignment="Top" Width="170" Height="40"
                 Click="BtnCreateExcel_Click"/>

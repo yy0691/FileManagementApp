@@ -94,9 +94,9 @@ namespace FileManagementApp
                         ReplaceTextInWordDocument(body, "待替换学校名称", newSchoolName);
                         ReplaceTextInWordDocument(body, "待替换日期", newDate);
 
-                        // 保存并关闭文件
+                    // 保存并关闭文件
                         wordDoc.MainDocumentPart.Document.Save();
-                    }
+                }
                 }
                 catch (Exception ex)
                 {

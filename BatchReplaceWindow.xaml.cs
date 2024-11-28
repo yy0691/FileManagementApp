@@ -29,7 +29,7 @@ namespace FileManagementApp
         }
 
         private void ReplaceTextInDocuments(string folderPath, string oldSchoolName, string newSchoolName, string oldDate, string newDate)
-        {
+            {
             var wordFiles = Directory.GetFiles(folderPath, "*.docx");
 
             foreach (var file in wordFiles)
@@ -40,13 +40,13 @@ namespace FileManagementApp
                     {
                         var body = wordDoc.MainDocumentPart.Document.Body;
 
-                        // 替换文本
+                    // 替换文本
                         ReplaceTextInBody(body, oldSchoolName, newSchoolName);
                         ReplaceTextInBody(body, oldDate, newDate);
 
                         // 保存文档
                         wordDoc.MainDocumentPart.Document.Save();
-                    }
+                }
 
                     // 更新进度条
                     ProgressBar.Dispatcher.Invoke(() => ProgressBar.Value += 100.0 / wordFiles.Length);
@@ -66,7 +66,7 @@ namespace FileManagementApp
                 {
                     // 替换文本
                     textElement.Text = textElement.Text.Replace(oldText, newText);
-                }
+            }
             }
         }
 
@@ -77,7 +77,7 @@ namespace FileManagementApp
             {
                 MessageBox.Show("未选择文件夹！");
                 return;
-            }
+        }
 
             string oldSchoolName = TxtOldSchoolName.Text; // 用户输入的旧学校名称
             string newSchoolName = TxtNewSchoolName.Text; // 用户输入的新学校名称
@@ -86,7 +86,7 @@ namespace FileManagementApp
 
             if (string.IsNullOrEmpty(oldSchoolName) || string.IsNullOrEmpty(oldDate) ||
                 string.IsNullOrEmpty(newSchoolName) || string.IsNullOrEmpty(newDate))
-            {
+        {
                 MessageBox.Show("所有字段都必须填写！");
                 return;
             }
