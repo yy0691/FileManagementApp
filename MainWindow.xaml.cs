@@ -241,5 +241,16 @@ namespace FileManagementApp
             // 使用默认浏览器打开链接
             System.Diagnostics.Process.Start(new ProcessStartInfo("https://n1ddxc0sfaq.feishu.cn/docx/ZCQOd5wW3oHYUExmdxqcnraaned?from=from_copylink") { UseShellExecute = true });
         }
+
+        private void BatchCreateUserManuals_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnBatchCreateUserManuals_Click(object sender, RoutedEventArgs e)
+        {
+            BatchCreateUserManuals batchCreateUserManuals = new BatchCreateUserManuals();
+            batchCreateUserManuals.ShowDialog();
+        }
     }
 }

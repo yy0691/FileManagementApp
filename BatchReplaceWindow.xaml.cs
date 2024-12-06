@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
+//using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -49,7 +49,12 @@ namespace FileManagementApp
                 }
 
                     // 更新进度条
-                    ProgressBar.Dispatcher.Invoke(() => ProgressBar.Value += 100.0 / wordFiles.Length);
+                    ProgressBar.Dispatcher.Invoke(() =>
+                    {
+                        ProgressBar.Value = (ProgressBar.Value + 100.0 / wordFiles.Length);
+                    }, System.Windows.Threading.DispatcherPriority.Background);
+
+
                 }
                 catch (Exception ex)
                 {
@@ -60,15 +65,93 @@ namespace FileManagementApp
 
         private void ReplaceTextInBody(Body body, string oldText, string newText)
         {
-            foreach (var textElement in body.Descendants<Text>())
+            foreach (var paragraph in body.Elements<Paragraph>())
             {
-                if (textElement.Text.Contains(oldText))
+                var runs = paragraph.Elements<Run>().ToList();
+                var buffer = new StringBuilder();
+                var runMapping = new List<(Run, int, int)>(); // 记录文本位置和 Run 的映射
+
+                // 收集所有文本内容并记录 Run 映射
+                foreach (var run in runs)
                 {
-                    // 替换文本
-                    textElement.Text = textElement.Text.Replace(oldText, newText);
-            }
+                    var textElement = run.GetFirstChild<Text>();
+                    if (textElement != null)
+                    {
+                        buffer.Append(textElement.Text);
+                        runMapping.Add((run, buffer.Length - textElement.Text.Length, buffer.Length));
+                    }
+                }
+
+                // 替换文本
+                string fullText = buffer.ToString();
+                if (fullText.Contains(oldText))
+                {
+                    string updatedText = fullText.Replace(oldText, newText);
+
+                    // 清空段落中的所有 Run
+                    foreach (var run in runs)
+                    {
+                        run.RemoveAllChildren<Text>();
+                    }
+
+                    // 重新分配文本到原来的 Run，保留格式
+                    int currentIndex = 0;
+                    foreach (var (run, start, end) in runMapping)
+                    {
+                        if (currentIndex >= updatedText.Length) break;
+
+                        int lengthToTake = Math.Min(updatedText.Length - currentIndex, end - start);
+                        string subText = updatedText.Substring(currentIndex, lengthToTake);
+
+                        run.AppendChild(new Text(subText));
+                        currentIndex += lengthToTake;
+                    }
+
+                    // 如果替换文本比原文本长，超出的部分需要分配到新的 Run
+                    if (currentIndex < updatedText.Length)
+                    {
+                        string remainingText = updatedText.Substring(currentIndex);
+                        var lastRun = runMapping.Last().Item1;
+                        var newTextElement = new Text(remainingText);
+                        lastRun.AppendChild(newTextElement);
+                    }
+                }
             }
         }
+     
+
+        //private async void ReplaceTextInDocumentsAsync(string folderPath, string oldText, string newText)
+        //{
+        //    var wordFiles = Directory.GetFiles(folderPath, "*.docx");
+
+        //    ProgressBar.Value = 0; // 重置进度条
+
+        //    await Task.Run(() =>
+        //    {
+        //        for (int i = 0; i < wordFiles.Length; i++)
+        //        {
+        //            try
+        //            {
+        //                ReplaceTextInBody(wordFiles[i], oldText, newText);
+
+        //                // 更新进度条
+        //                Application.Current.Dispatcher.Invoke(() =>
+        //                {
+        //                    ProgressBar.Value = (i + 1) * 100.0 / wordFiles.Length;
+        //                });
+        //            }
+        //            catch (Exception ex)
+        //            {
+        //                Application.Current.Dispatcher.Invoke(() =>
+        //                {
+        //                    MessageBox.Show($"处理文件 {wordFiles[i]} 时出错: {ex.Message}");
+        //                });
+        //            }
+        //        }
+        //    });
+
+        //    MessageBox.Show("批量替换完成！");
+        //}
 
         private void BtnStartReplace_Click(object sender, RoutedEventArgs e)
         {

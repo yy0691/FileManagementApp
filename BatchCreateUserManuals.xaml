@@ -1,0 +1,25 @@
+﻿<Window x:Class="FileManagementApp.BatchCreateUserManuals"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FileManagementApp"
+        mc:Ignorable="d"
+        Title="BatchCreateUserManuals" Height="550" Width="800">
+    <Grid Margin="0,0,0,210">
+        <Label Content="模板路径：" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0"/>
+        <TextBox Name="TxtTemplatePath" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Margin="100,10,0,0"/>
+        <Button Content="选择" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="410,10,0,0" Width="60" Click="BtnSelectTemplate_Click"/>
+
+        <Label Content="输出路径：" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,50,0,0"/>
+        <TextBox Name="TxtOutputPath" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Margin="100,50,0,0"/>
+        <Button Content="选择" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="410,50,0,0" Width="60" Click="BtnSelectOutput_Click"/>
+
+        <Label Content="Excel 文件：" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,90,0,0"/>
+        <TextBox Name="TxtExcelPath" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Margin="100,90,0,0"/>
+        <Button Content="选择" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="410,90,0,0" Width="60" Click="BtnSelectExcel_Click"/>
+
+        <Button Content="开始生成" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,20" Width="100" Click="BtnGenerateFiles_Click"/>
+        <ProgressBar Name="ProgressBar" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10,0,0,50" Height="20" Width="790"/>
+    </Grid>
+</Window>
