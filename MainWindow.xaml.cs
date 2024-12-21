@@ -1,25 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.IO;
-using ClosedXML.Excel;
-using Microsoft.Win32;
-using Microsoft.WindowsAPICodePack.Dialogs; // 用于选择文件夹
-using OfficeOpenXml; // EPPlus 提供的功能
 using System.Diagnostics;  // 引入 System.Diagnostics 命名空间
+using System.IO;
+using System.Windows;
 using System.Windows.Forms;
-using Xceed.Words.NET;
+using System.Windows.Media.Imaging;
+using System.Windows.Media;
+using OfficeOpenXml; // EPPlus 提供的功能
 
 namespace FileManagementApp
 {
@@ -230,17 +217,7 @@ namespace FileManagementApp
             dialog.ShowDialog();  // 显示弹框
         }
 
-        private void OpenLink_Click(object sender, object e)
-        {
-            // 使用默认浏览器打开链接
-            System.Diagnostics.Process.Start(new ProcessStartInfo("https://n1ddxc0sfaq.feishu.cn/docx/ZCQOd5wW3oHYUExmdxqcnraaned?from=from_copylink") { UseShellExecute = true });
-        }
-
-        private void OpenLink_Click(object sender, RoutedEventArgs e)
-        {
-            // 使用默认浏览器打开链接
-            System.Diagnostics.Process.Start(new ProcessStartInfo("https://n1ddxc0sfaq.feishu.cn/docx/ZCQOd5wW3oHYUExmdxqcnraaned?from=from_copylink") { UseShellExecute = true });
-        }
+        
 
         private void BatchCreateUserManuals_Click(object sender, RoutedEventArgs e)
         {
@@ -252,5 +229,44 @@ namespace FileManagementApp
             BatchCreateUserManuals batchCreateUserManuals = new BatchCreateUserManuals();
             batchCreateUserManuals.ShowDialog();
         }
+
+        private void btnFunction1_Click(object sender, RoutedEventArgs e)
+        {
+
+            UIUpdateWindow1 updateWindow1 = new UIUpdateWindow1();
+            updateWindow1.ShowDialog();
+        }
+
+        private void btnFunction2_Click(object sender, RoutedEventArgs e)
+        {
+            Function2 function2 = new Function2();
+            function2.ShowDialog();
+        }
+
+        private void Function1_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            var button = sender as Button;
+            Function1.Background = new ImageBrush(new BitmapImage(new Uri("F:\\VS\\DATA\\FileManagementApp\\UI\\检索文件_点击.png", UriKind.Relative)));
+        }
+
+        private void Function1_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            var button = sender as Button;
+            Function1.Background = new ImageBrush(new BitmapImage(new Uri("F:\\VS\\DATA\\FileManagementApp\\UI\\检索文件_点击.png", UriKind.Relative)));
+        }
+        
+
+        private void Function1_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            var button = sender as Button;
+            Function1.Background = new ImageBrush(new BitmapImage(new Uri("F:\\VS\\DATA\\FileManagementApp\\UI\\检索文件_点击.png", UriKind.Relative)));
+        }
+
+        private void BtnHelp_Click(object sender, RoutedEventArgs e)
+        {
+            // 使用默认浏览器打开链接
+            System.Diagnostics.Process.Start(new ProcessStartInfo("https://n1ddxc0sfaq.feishu.cn/docx/ZCQOd5wW3oHYUExmdxqcnraaned?from=from_copylink") { UseShellExecute = true });
+        }
     }
+    
 }

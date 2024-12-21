@@ -1,0 +1,89 @@
+﻿<Window x:Class="FileManagementApp.UIUpdateWindow1"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FileManagementApp"
+        mc:Ignorable="d"
+        Title="功能一：文件检索" Height="560" Width="540" Background="White" MinWidth="540" MinHeight="560">
+    <Grid MinWidth="540" MinHeight="550" Margin="0,0,0,-85" Width="540">
+
+        <!-- 功能一标题 -->
+        <TextBlock Text="功能一：出库手册/资源包快速检索" 
+                   VerticalAlignment="Top" 
+                   Foreground="#FF976D88" Height="20" Width="216" Margin="25,25,0,0" MinWidth="250" MinHeight="24" FontFamily="Source Han Serif SC Heavy" FontSize="16" />
+        <!-- 额外信息或占位 -->
+        <Border Background="#20E0B6D1" CornerRadius="1,1,1,1" Margin="25,65,23,0" MinHeight="80" Grid.RowSpan="2" VerticalAlignment="Top" MinWidth="300" Height="140">
+            <TextBlock TextWrapping="Wrap"  
+        FontFamily="Source Han Serif SC"  
+        Width="460"  
+        Foreground="#FF976D88"
+        Height="120" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14" LineHeight="8">  
+        
+        <Run Text="借助出库列表直接进行检索并复制用户手册、资源包等文件。" FontWeight="Bold" />  
+        <LineBreak /> <!-- 添加换行 -->
+        <Run Text="使用方法：" FontWeight="Bold" />  
+        <LineBreak />  
+        <Run Text="1. 选择或创建实验目录表格，在第一列填写实验名称；" />  
+        <LineBreak />  
+        <Run Text="2. 点击“开始检索”，检索与出库列表中名称一致的文件，复制到新文件夹，并添加数字前缀；" />  
+        <LineBreak />  
+        <Run Text="3. 没找到的实验会在 Excel 表中高亮显示。" />
+            </TextBlock>
+        </Border>
+        <!-- 待出库实验目录 -->
+        <StackPanel VerticalAlignment="Top" Height="70" Margin="0,220,0,0" Width="540" MinWidth="540" MinHeight="70">
+            <TextBlock Text="待出库实验目录：" 
+                       Foreground="#FF976D88" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" MinWidth="120" MinHeight="18" FontFamily="Source Han Serif CN SemiBold" Margin="25,0,0,0" FontSize="16" />
+            <StackPanel Orientation="Horizontal" Margin="25,10,25,0" VerticalAlignment="Top" Grid.Row="1" Height="40" Width="490" Grid.RowSpan="2" MinWidth="490" MinHeight="35">
+                <Border Background="#00F5F5F5" CornerRadius="8" MinWidth="300" Height="40" Width="273">
+                    <TextBox x:Name="txtExcelPath" Text="请创建或选择实验目录表格" Style="{StaticResource BoxBody}" Height="25" Width="300" HorizontalAlignment="Center" VerticalAlignment="Center"  />
+                </Border>
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center"  Width="174" Cursor="Hand" Margin="10,0,0,0" >
+                    <Button Content="选择表格" x:Name="btnChooseExcel"  Width="80" Height="25" Style="{StaticResource ButtonStyle}" Click="btnChooseExcel_Click"    />
+                    <Button Content="创建表格" x:Name="btnCreateExcel"  Width="80" Height="25" Style="{StaticResource ButtonStyle}" Click="btnCreateExcel_Click"   Margin="10,2,0,2"  />
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+
+
+        <!-- 成品库文件路径 -->
+        <StackPanel Margin="0,300,0,0" Height="70" MinWidth="540" MinHeight="70" VerticalAlignment="Top">
+            <TextBlock Foreground="#FF976D88" Margin="25,0,0,0" Grid.Row="2" MinWidth="200" HorizontalAlignment="Left" VerticalAlignment="Top" MinHeight="25" FontFamily="Source Han Serif CN SemiBold" Height="20" Width="200" FontSize="16" ><Run Text="成品库文件路"/><Run Language="zh-cn" Text="径"/><Run Text="："/></TextBlock>
+            <StackPanel Orientation="Horizontal" Margin="25,10,25,0" VerticalAlignment="Top" Grid.Row="2" Height="40" MinWidth="490" MinHeight="40">
+                <Border Background="#00F5F5F5" CornerRadius="4" MinWidth="40" Width="300">
+                    <TextBox x:Name="FileSavePath" Text="请选择用户手册/资源包存放的文件夹" Style="{StaticResource BoxBody}" Height="25" Width="300" Padding="0,0,0,0"  HorizontalAlignment="Center" VerticalAlignment="Center" />
+                </Border>
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center"  Width="174" Cursor="Hand" Margin="10,0,0,0">
+                    <Button Content="选择路径" Name="btnChooseSavePath" Width="80" Height="25" Margin="0,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left" Style="{StaticResource ButtonStyle}" Grid.Row="1" Click="btnChooseSavePath_Click"  Cursor="Hand" />
+                    <Button Content="打开文件" Name="btnOpenSavePath" Width="80" Height="25" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left" Style="{StaticResource ButtonStyle}" Grid.Row="1" Click="btnOpenSavePath_Click"  Cursor="Hand" />
+
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+
+
+
+
+        <!-- 输出文件路径 -->
+        <StackPanel Margin="0,375,0,0" VerticalAlignment="Top" Height="70" MinWidth="540" MinHeight="70">
+            <TextBlock Foreground="#FF976D88" Margin="25,0,0,0" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Top" MinHeight="18" MinWidth="200" FontFamily="Source Han Serif CN SemiBold" FontSize="16" ><Run Text="输出文件"/><Run Language="zh-cn" Text="路径"/><Run Text="："/></TextBlock>
+            <StackPanel  Orientation="Horizontal" Margin="25,10,25,0" VerticalAlignment="Top" Grid.Row="2" Height="35" Width="490" MinWidth="490" MinHeight="35">
+                <Border Background="#00F5F5F5" CornerRadius="8" MinWidth="240" Width="300">
+                    <TextBox x:Name="FileOutPutPath" Text="请选择用户手册/资源包输出的文件夹" Style="{StaticResource BoxBody}" Height="25" Width="300" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0,0,0,0" />
+                </Border>
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center"  Width="174" Cursor="Hand" Margin="10,0,0,0">
+                    <Button Content="选择路径" Name="btnChooseOutputPath" Width="80" Height="25" Margin="0,0,0,0" Style="{StaticResource ButtonStyle}" Grid.Row="1"  Cursor="Hand" Click="btnChooseOutputPath_Click" FontSize="14"/>
+                    <Button Content="打开文件" Name="btnOpenOutputPath" Width="80" Height="25" Style="{StaticResource ButtonStyle}"  Cursor="Hand" Click="btnOpenOutputPath_Click" Margin="10,0,0,0" FontSize="14"/>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+
+
+        <!-- 开始检索按钮 -->
+        <Button  Name="btnStartFindFile" Content="开始检索" Foreground="#FF976D88" Width="102" Margin="0,480,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="2" Height="30" Style="{StaticResource ButtonStyle}" FontFamily="Source Han Serif CN Heavy"  Cursor="Hand" Click="btnStartFindFile_Click" FontSize="14" />
+
+        
+
+    </Grid>
+</Window>

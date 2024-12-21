@@ -1,0 +1,107 @@
+﻿<Window x:Class="FileManagementApp.Function2"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FileManagementApp"
+        mc:Ignorable="d"
+        Title="功能二：批量替换word文本" Height="510" Width="470" MinHeight="510" MinWidth="470" HorizontalAlignment="Center" VerticalAlignment="Center" MaxHeight="480" MaxWidth="500">
+    <Grid>
+                 <!--功能二标题--> 
+        
+        <TextBlock Text="功能二：出库手册/资源包快速检索" 
+           VerticalAlignment="Top" 
+           Foreground="#FF976D88" Height="20" Width="216" MinWidth="250" MinHeight="24" FontFamily="Source Han Serif SC Heavy" FontSize="16" Margin="-1,25,0,0" />
+        
+         <!--额外信息或占位-->
+        <Grid HorizontalAlignment="Center" VerticalAlignment="Top" Height="120" Width="420" Margin="0,65,0,0">
+            <Border Background="#20E0B6D1" CornerRadius="1,1,1,1" MinHeight="80" Grid.RowSpan="2" VerticalAlignment="Center" MinWidth="300" Height="120" Width="420">
+                <TextBlock TextWrapping="Wrap"  
+                    FontFamily="Source Han Serif SC"  
+                    Width="400"  
+                    Foreground="#FF976D88"
+                    Height="100" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14" LineHeight="8">  
+
+            <Run Text="一键替换用户手册中的学校名称与日期。" FontWeight="Bold" />  
+            <LineBreak /> 
+             <!--添加换行--> 
+        
+            <Run Text="使用方法：" FontWeight="Bold" />  
+            <LineBreak />  
+            <Run Text="1. 使用功能一，检索并批量复制模板文件；" />  
+            <LineBreak />  
+            <Run Text="2. 保持默认内容输入新学校名称；" />  
+            <LineBreak />  
+            <Run Text="3. 也可自行输入待替换内容。" />
+            </TextBlock>
+        </Border>
+        </Grid>
+        <Grid Grid.RowSpan="3" Width="450" Height="290" VerticalAlignment="Bottom">
+            <StackPanel Height="260" Width="410" MinWidth="420" MinHeight="260" Margin="15,10,15,13" Grid.RowSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Grid Height="60" Width="420" MinWidth="420" MinHeight="50">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <!-- 左侧控件占用的空间 -->
+                        <ColumnDefinition Width="*" />
+                        <!-- 右侧控件占用的空间 -->
+                    </Grid.ColumnDefinitions>
+
+                    <!-- 左侧控件 -->
+                    <StackPanel Grid.Column="0" Width="200" Height="60" VerticalAlignment="Top" HorizontalAlignment="Left">
+                        <TextBlock Text="旧学校名称:" Style="{StaticResource Title}" VerticalAlignment="Top" Margin="0,0,0,5" HorizontalAlignment="Left" />
+                        <TextBox x:Name="TxtOldSchoolName" Text="待替换学校名称" Style="{StaticResource BoxBody}"  FontSize="14" Padding="0,2,0,0" />
+                    </StackPanel>
+
+                    <!-- 右侧控件 -->
+                    <StackPanel Grid.Column="1" Width="200" Height="60" VerticalAlignment="Top" HorizontalAlignment="Right">
+                        <TextBlock Text="新学校名称:" Foreground="#FF976D88" Style="{StaticResource Title}" Margin="0,0,0,5" VerticalAlignment="Center" />
+                        <TextBox x:Name="TxtNewSchoolName" Style="{StaticResource BoxBody}" VerticalAlignment="Top" Padding="0,2,0,0" />
+                    </StackPanel>
+                </Grid>
+
+                <Grid Height="60" Width="416" MinWidth="420" MinHeight="50" Margin="0,10,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <!-- 左侧控件占用的空间 -->
+                        <ColumnDefinition Width="*" />
+                        <!-- 右侧控件占用的空间 -->
+                    </Grid.ColumnDefinitions>
+
+                    <!-- 左侧控件 -->
+                    <StackPanel Grid.Column="0" Width="200" Height="60" VerticalAlignment="Top" HorizontalAlignment="Left">
+                        <TextBlock Text="旧日期:" Style="{StaticResource Title}" />
+                        <TextBox x:Name="TxtOldDate" Text="待替换日期" Style="{StaticResource BoxBody}" VerticalAlignment="Center" Padding="0,2,0,0" />
+                    </StackPanel>
+
+                    <!-- 右侧控件 -->
+                    <StackPanel Grid.Column="1" Width="200" Height="60" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="10,0,0,0">
+                        <TextBlock Text="新出库日期:" Foreground="#FF976D88" Style="{StaticResource Title}" VerticalAlignment="Top" />
+                        <TextBox x:Name="TxtNewDate" Style="{StaticResource BoxBody}" VerticalAlignment="Top" MinWidth="200" Padding="0,2,0,0" />
+                    </StackPanel>
+                </Grid>
+
+
+                <StackPanel Width="416" Height="65" MinWidth="410" MinHeight="65">
+                    <TextBlock Text="文件路径：" Grid.Row="2" Style="{StaticResource Title}"  Foreground="#FF976D88" MinWidth="200" HorizontalAlignment="Left" VerticalAlignment="Top" MinHeight="18"  />
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Grid.Row="2" Height="40" Width="416" MinWidth="416" MinHeight="40" Margin="0,5,0,0">
+
+                        <TextBox x:Name="WordSavePath" Text="请选择用户手册存放的文件夹" Style="{StaticResource BoxBody}"  Visibility="Visible" VerticalContentAlignment="Center" Height="25" Width="200"  />
+
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center"  Width="190" Cursor="Hand" HorizontalAlignment="Right" Height="25" Margin="20,0,0,0">
+                            <Button Content="选择路径" x:Name="btnChooseSavePath" Width="80" Height="25" Margin="0,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left" Style="{StaticResource ButtonStyle}" Grid.Row="1" Click="btnChooseSavePath_Click"  Cursor="Hand" HorizontalContentAlignment="Left"/>
+                            <Button Content="打开文件夹" x:Name="btnOpenSavePath" Width="80" Height="25" Margin="30,0,0,0" VerticalAlignment="Center" Style="{StaticResource ButtonStyle}" Grid.Row="1" Click="btnOpenSavePath_Click"  Cursor="Hand" HorizontalAlignment="Right"/>
+
+                        </StackPanel>
+
+                    </StackPanel>
+                </StackPanel>
+
+                <StackPanel Height="60" MinWidth="410" MinHeight="60" Margin="0,9,0,0">
+                    <Button  Name="btnStartReplace" Content="开始替换" Width="102" Foreground="#FF976D88" Height="30" Style="{StaticResource ButtonStyle}" Cursor="Hand" Click="BtnStartReplace_Click" MinWidth="102" MinHeight="30" Margin="0,5,0,0" VerticalAlignment="Top" />
+                    <ProgressBar x:Name="ProgressBar" Visibility="Collapsed" Background="#FFF5F5F5" Foreground="#90c08eaf" BorderBrush="#50c08eaf" Height="10" VerticalAlignment="Top" MinWidth="400" MinHeight="10" Width="400" Margin="0,8,0,0" ScrollViewer.VerticalScrollBarVisibility="Disabled"/>
+                </StackPanel>
+
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>
