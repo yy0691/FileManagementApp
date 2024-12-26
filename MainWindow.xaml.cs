@@ -205,31 +205,6 @@ namespace FileManagementApp
             }
         }
 
-        private void BtnOpenReplaceWindow_Click(object sender, RoutedEventArgs e)
-        {
-            BatchReplaceWindow batchReplaceWindow = new BatchReplaceWindow();
-            batchReplaceWindow.ShowDialog();
-        }
-
-        private void BtnFixedReplaceText_Click(object sender, object e)
-        {
-            GuDingReplaceWindow dialog = new GuDingReplaceWindow();
-            dialog.ShowDialog();  // 显示弹框
-        }
-
-        
-
-        private void BatchCreateUserManuals_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void btnBatchCreateUserManuals_Click(object sender, RoutedEventArgs e)
-        {
-            BatchCreateUserManuals batchCreateUserManuals = new BatchCreateUserManuals();
-            batchCreateUserManuals.ShowDialog();
-        }
-
         private void btnFunction1_Click(object sender, RoutedEventArgs e)
         {
 
@@ -266,6 +241,22 @@ namespace FileManagementApp
         {
             // 使用默认浏览器打开链接
             System.Diagnostics.Process.Start(new ProcessStartInfo("https://n1ddxc0sfaq.feishu.cn/docx/ZCQOd5wW3oHYUExmdxqcnraaned?from=from_copylink") { UseShellExecute = true });
+        }
+
+        private void BtnRenameRule_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void BtnRemind_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnBatchCreateUserManuals_Click(object sender, RoutedEventArgs e)
+        {
+            BatchCreateUserManuals batchCreateUserManuals = new BatchCreateUserManuals();
+            batchCreateUserManuals.ShowDialog();
         }
     }
     

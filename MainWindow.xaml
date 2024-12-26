@@ -240,7 +240,7 @@
                 </ControlTemplate>
             </Button.Template>
             <Button.ToolTip>
-                <ToolTip Background="Transparent" BorderBrush="Transparent" Placement="Bottom" HorizontalOffset="-60" VerticalOffset="-5">
+                <ToolTip Background="Transparent" BorderBrush="Transparent" Placement="Bottom" HorizontalOffset="-60" VerticalOffset="0">
 
                     <Image Source="/UI/使用文档.png" Width="136" Height="60"/>
                 </ToolTip>
@@ -248,7 +248,47 @@
 
 
         </Button>
+        <Button x:Name="BtnRemind" Click="BtnRemind_Click"  ToolTipService.InitialShowDelay="100" VerticalAlignment="Top" HorizontalAlignment="Left" Width="30" Height="30" MinWidth="20" MinHeight="20" Cursor="Hand" Margin="10,350,0,0">
+            <Button.Template>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Grid>
+                        <!-- 默认图片 -->
+                        <Image Source="/UI/辅助功能UI/提醒_常态.png" x:Name="BtnRemindNormalState" Visibility="Visible" />
+                        <!-- 悬浮态图片 -->
+                        <Image Source="/UI/辅助功能UI/提醒_点击.png" x:Name="BtnRemindHoverState" Visibility="Collapsed" />
+                        <!-- 点击态图片 -->
+                        <Image Source="/UI/辅助功能UI/提醒_点击.png" x:Name="BtnRemindPressedState" Visibility="Collapsed" />
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <!-- 悬浮态 -->
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="BtnRemindNormalState" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="BtnRemindHoverState" Property="Visibility" Value="Visible" />
+                        </Trigger>
+                        <!-- 点击态 -->
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="BtnRemindHoverState" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="BtnRemindPressedState" Property="Visibility" Value="Visible" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Button.Template>
 
+        </Button>
+        <Button x:Name="BtnRenameRule" Click="BtnRenameRule_Click" Width="135" Height="50">
+            <Button.Template>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Grid>
+                        <!-- 默认图片 -->
+                        <Image Source="/UI/辅助功能UI/文件命名_常态.png" x:Name="BtnRenameRuleNormalState" Visibility="Visible" />
+                        <!-- 悬浮态图片 -->
+                        <Image Source="/UI/辅助功能UI/文件命名_点击.png" x:Name="BtnRenameRuleHoverState" Visibility="Collapsed" />
+                        <!-- 点击态图片 -->
+                        <Image Source="/UI/辅助功能UI/文件命名_点击.png" x:Name="BtnRenameRulePressedState" Visibility="Collapsed" />
+                    </Grid>
+                 </ControlTemplate>
+            </Button.Template>
+        </Button>
 
     </Grid>
 

@@ -8,7 +8,7 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>FileManagementApp</RootNamespace>
     <AssemblyName>Tools 1.1</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
@@ -19,13 +19,14 @@
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
-    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateEnabled>true</UpdateEnabled>
     <UpdateMode>Foreground</UpdateMode>
     <UpdateInterval>7</UpdateInterval>
     <UpdateIntervalUnits>Days</UpdateIntervalUnits>
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
+    <UpdateUrl>http://localhost/Tools 1.1/</UpdateUrl>
     <ApplicationRevision>3</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
@@ -55,7 +56,7 @@
     <ApplicationIcon>UI\LuoYuan.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>CEB69C37196AFAFF13F7E5F0D42F7B0F9D25458E</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>0A0A64F2ADA95B3E2FEE3EB2F278AA84FD350BB4</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestKeyFile>FileManagementApp_TemporaryKey.pfx</ManifestKeyFile>
@@ -64,7 +65,7 @@
     <GenerateManifests>true</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <SignManifests>false</SignManifests>
+    <SignManifests>true</SignManifests>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ClosedXML, Version=0.104.2.0, Culture=neutral, processorArchitecture=MSIL">
@@ -91,6 +92,9 @@
     </Reference>
     <Reference Include="ExcelNumberFormat, Version=1.1.0.0, Culture=neutral, PublicKeyToken=23c6f5d73be07eca, processorArchitecture=MSIL">
       <HintPath>packages\ExcelNumberFormat.1.1.0\lib\net20\ExcelNumberFormat.dll</HintPath>
+    </Reference>
+    <Reference Include="FuzzySharp, Version=1.0.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\FuzzySharp.2.0.2\lib\net461\FuzzySharp.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Bcl.HashCode, Version=6.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>packages\Microsoft.Bcl.HashCode.6.0.0\lib\net462\Microsoft.Bcl.HashCode.dll</HintPath>
@@ -167,6 +171,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="BatchCreateUserManuals.xaml.cs">
+      <DependentUpon>BatchCreateUserManuals.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Function2.xaml.cs">
       <DependentUpon>Function2.xaml</DependentUpon>
     </Compile>
@@ -176,6 +183,10 @@
     <Compile Include="UpdateWindow1.xaml.cs">
       <DependentUpon>UpdateWindow1.xaml</DependentUpon>
     </Compile>
+    <Page Include="BatchCreateUserManuals.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Function2.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -255,12 +266,6 @@
     <Resource Include="UI\按钮_常态.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="仪器识别_常态.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="wallpaperflare.com_wallpaper.jpg" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="UI\BackGround.png" />
   </ItemGroup>
   <ItemGroup>
@@ -292,6 +297,18 @@
     <Resource Include="UI\出库 工具包.png" />
     <Resource Include="UI\出库工具包-1.png" />
     <Resource Include="UI\出库工具包.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="UI\辅助功能UI\Word宏工具_常态.png" />
+    <Resource Include="UI\辅助功能UI\Word宏工具_点击.png" />
+    <Resource Include="UI\辅助功能UI\文件命名_点击.png" />
+    <Resource Include="UI\辅助功能UI\手册模板_常态-1.png" />
+    <Resource Include="UI\辅助功能UI\手册模板_常态.png" />
+    <Resource Include="UI\辅助功能UI\文件命名_常态.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="UI\辅助功能UI\提醒_常态.png" />
+    <Resource Include="UI\辅助功能UI\提醒_点击.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

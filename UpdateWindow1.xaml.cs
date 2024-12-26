@@ -7,6 +7,9 @@ using System.Windows;
 using System.Windows.Forms;
 using OfficeOpenXml;
 using System.Threading.Tasks;
+using System.Collections.Concurrent;
+using System.Linq;
+using FuzzySharp;
 
 namespace FileManagementApp
 {
@@ -139,7 +142,7 @@ namespace FileManagementApp
                     // 自动打开 Excel 文件
                     try
                     {
-                        Process.Start(new ProcessStartInfo
+                        System.Diagnostics.Process.Start(new ProcessStartInfo
                         {
                             FileName = excelFilePath,
                             UseShellExecute = true
@@ -215,42 +218,112 @@ namespace FileManagementApp
             using (var package = new ExcelPackage(new FileInfo(excelPath)))
             {
                 var worksheet = package.Workbook.Worksheets[0];
-                var notFound = new List<string>();
+                var notFoundIndexes = new ConcurrentBag<int>(); // 记录未找到实验的行索引
+                var totalExperiments = experimentNames.Length;
+                var progress = new ConcurrentBag<int>(); // 用于记录处理进度
 
-                for (int i = 0; i < experimentNames.Length; i++)
+                Parallel.ForEach(experimentNames, (name, state, index) =>
                 {
                     progressWindow.CancellationToken.ThrowIfCancellationRequested();
 
-                    string name = experimentNames[i];
-                    var files = Directory.GetFiles(savePath, $"*{name}*"); // 模糊匹配
+                    // 获取所有文件进行模糊匹配
+                    var files = Directory.GetFiles(savePath);
 
-                    if (files.Length > 0)
+                    // 使用 FuzzySharp 计算相似度
+                    var matchedFiles = files
+                        .Select(file => new { File = file, Score = Fuzz.WeightedRatio(Path.GetFileNameWithoutExtension(file), name) })
+                        .Where(match => match.Score > 70) // 设置相似度得分阈值
+                        .OrderByDescending(match => match.Score)
+                        .ToList();
+
+                    if (matchedFiles.Count > 0)
                     {
-                        foreach (var file in files)
+                        foreach (var match in matchedFiles)
                         {
-                            string newFileName = $"{i + 1}_{Path.GetFileName(file)}";
+                            string newFileName = $"{index + 1}_{Path.GetFileName(match.File)}";
                             string destinationPath = Path.Combine(outputPath, newFileName);
-                            File.Copy(file, destinationPath, overwrite: true);
+                            File.Copy(match.File, destinationPath, overwrite: true);
                         }
                     }
                     else
                     {
-                        notFound.Add(name);
-                        worksheet.Cells[i + 2, 1].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
-                        worksheet.Cells[i + 2, 1].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.Yellow);
+                        notFoundIndexes.Add((int)index + 2); // 记录未找到的行（Excel 从第 2 行开始记录）
                     }
 
-                    // 更新进度条
+                    // 更新进度
+                    progress.Add(1);
+
+                    // 线程安全地更新进度条
                     progressWindow.Dispatcher.Invoke(() =>
                     {
-                        progressWindow.UpdateProgress(i + 1, experimentNames.Length);
+                        progressWindow.UpdateProgress(progress.Count, totalExperiments);
                     });
+                });
+
+                // 高亮显示未找到的实验名称
+                foreach (var rowIndex in notFoundIndexes)
+                {
+                    worksheet.Cells[rowIndex, 1].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                    worksheet.Cells[rowIndex, 1].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.Yellow);
                 }
 
                 // 保存 Excel 文件
                 package.Save();
+
+                // 提示用户未找到的实验名称数量
+                if (notFoundIndexes.Count > 0)
+                {
+                    System.Windows.MessageBox.Show($"以下实验未找到对应文件，已在 Excel 中高亮显示：{notFoundIndexes.Count} 条");
+                }
+                else
+                {
+                    System.Windows.MessageBox.Show("文件复制完成！");
+                }
             }
         }
+
+
+        //private void CopyFilesWithProgress(string[] experimentNames, string savePath, string outputPath, string excelPath, ProgressWindow progressWindow)
+        //{
+        //    using (var package = new ExcelPackage(new FileInfo(excelPath)))
+        //    {
+        //        var worksheet = package.Workbook.Worksheets[0];
+        //        var notFound = new List<string>();
+
+        //        for (int i = 0; i < experimentNames.Length; i++)
+        //        {
+        //            progressWindow.CancellationToken.ThrowIfCancellationRequested();
+
+        //            string name = experimentNames[i];
+        //            var files = Directory.GetFiles(savePath, $"*{name}*"); // 模糊匹配
+
+        //            if (files.Length > 0)
+        //            {
+        //                foreach (var file in files)
+        //                {
+        //                    string newFileName = $"{i + 1}_{Path.GetFileName(file)}";
+        //                    string destinationPath = Path.Combine(outputPath, newFileName);
+        //                    File.Copy(file, destinationPath, overwrite: true);
+        //                }
+        //            }
+        //            else
+        //            {
+        //                notFound.Add(name);
+        //                worksheet.Cells[i + 2, 1].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+        //                worksheet.Cells[i + 2, 1].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.Yellow);
+        //            }
+
+        //            // 更新进度条
+        //            progressWindow.Dispatcher.Invoke(() =>
+        //            {
+        //                progressWindow.UpdateProgress(i + 1, experimentNames.Length);
+        //            });
+        //        }
+
+        //        // 保存 Excel 文件
+        //        package.Save();
+        //    }
+        //}
 
         //开始检索
 
@@ -322,7 +395,7 @@ namespace FileManagementApp
                         folderPath = filePath;
                     }
                     // 使用Process类启动文件资源管理器并打开指定文件夹
-                    Process.Start("explorer.exe", folderPath);
+                   System.Diagnostics.Process.Start("explorer.exe", folderPath);
                 }
                 catch (Exception ex)
                 {
@@ -350,7 +423,7 @@ namespace FileManagementApp
                         folderPath = filePath;
                     }
                     // 使用Process类启动文件资源管理器并打开指定文件夹
-                    Process.Start("explorer.exe", folderPath);
+                    System.Diagnostics.Process.Start("explorer.exe", folderPath);
                 }
                 catch (Exception ex)
                 {
